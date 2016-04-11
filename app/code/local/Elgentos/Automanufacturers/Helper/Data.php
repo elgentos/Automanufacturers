@@ -82,10 +82,8 @@ class Elgentos_Automanufacturers_Helper_Data extends Mage_Core_Helper_Abstract {
     public function slugify($output,$divider="-") {
         // Transcribe (remove umlauts, accents, etc)
         $output = $this->transcribe($output);
-        // Replace spaces with hypens
-        $output = preg_replace("/\s/e" , "'_'" , $output);
-        // Remove non-word characters
-        $output = preg_replace("/\W/e" , " " , $output);
+        // Slugify with Magento built-in stuff
+        $output = Mage::getModel('catalog/product')->formatUrlKey($output);
         // Turn quadruple, triple and double dashes into single dashes
         $output = str_replace("____",$divider,$output);
         $output = str_replace("___",$divider,$output);
